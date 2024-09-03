@@ -8,7 +8,7 @@
 	<style>
 		#main {
 			width: 100%;
-			height: 800px;
+			height: 100vh;
 		}
 		#info-card {
 			position: absolute;
@@ -37,15 +37,25 @@
 		}
 		#image-zoom img {
 			max-width: 90%;
-			max-height: 90%;
 			cursor: pointer;
+			object-fit: contain; /* 保持比例 */
+		}
+		#map-intro {
+			text-align: center;
+			font-size: 18px;
+			font-weight: bold;
 		}
 	</style>
 	<meta name="google-site-verification" content="c62jXzB_gx_LSre99VkOeTcpuBxikEehKiwoykhZPZ4" />
 </head>
 <body>
-<div id="main"></div>
+<div id="map-intro">
+	<p>这是一个互动地图。您可以点击地图上的不同地区，查看详细信息和图片。点击图片可以放大查看。
+	<a href="description.html">了解更多信息</a></p>
+</div>
+<div id="main"><div style="text-align: center;">加载中……</div></div>
 <div id="info-card">
+	<span id="close-info-card" style="cursor: pointer; position: absolute; top: 10px; right: 15px; font-size: 30px;">&times;</span>
 	<h3 id="school-name"></h3>
 	<p id="description"></p>
 	<img id="school-image" src="" alt="School Image">
@@ -128,6 +138,11 @@
 			});
 			$('#image-zoom').on('click', ()=>{
 				$('#image-zoom').hide();
+			});
+			
+			// Add click event to close info-card
+			$('#close-info-card').on('click', ()=>{
+				$('#info-card').css('display', 'none');
 			});
 		})
 		.catch(error => console.error('Error fetching data:', error));
